@@ -15,4 +15,13 @@ public class ItemByWeight implements Item {
     public BigDecimal price() {
         return product.pricePerKilo().multiply(weightInKilos).setScale(2, BigDecimal.ROUND_HALF_UP);
     }
+
+    public BigDecimal weightInKilos() {
+        return  this.weightInKilos;
+    }
+
+    @Override
+    public WeighedProduct product() {
+        return this.product;
+    }
 }

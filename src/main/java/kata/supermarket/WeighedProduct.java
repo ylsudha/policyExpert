@@ -2,7 +2,7 @@ package kata.supermarket;
 
 import java.math.BigDecimal;
 
-public class WeighedProduct {
+public class WeighedProduct extends AbstractProduct{
 
     private final BigDecimal pricePerKilo;
 
