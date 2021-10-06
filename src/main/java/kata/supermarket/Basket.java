@@ -5,9 +5,12 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import kata.supermarket.discount.DiscountService;
 
 public class Basket {
     private final List<Item> items;
+
+    private DiscountService discountService;
 
     public Basket() {
         this.items = new ArrayList<>();
@@ -25,6 +28,11 @@ public class Basket {
         return new TotalCalculator().calculate();
     }
 
+    public void setDiscountService(DiscountService discountService) {
+        this.discountService = discountService;
+    }
+
+  
     private class TotalCalculator {
         private final List<Item> items;
 
@@ -47,6 +55,9 @@ public class Basket {
          *  which provides that functionality.
          */
         private BigDecimal discounts() {
+            if(discountService != null) {
+                return discountService.getTotalDiscounts(items());
+            }
             return BigDecimal.ZERO;
         }
 
