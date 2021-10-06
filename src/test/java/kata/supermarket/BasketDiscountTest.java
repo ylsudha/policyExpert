@@ -1,5 +1,6 @@
 package kata.supermarket;
 
+import kata.supermarket.discount.BuyXKGForPercentagePriceDiscount;
 import kata.supermarket.discount.Discount;
 import kata.supermarket.discount.DiscountService;
 import org.junit.jupiter.api.DisplayName;
@@ -28,7 +29,8 @@ class BasketDiscountTest {
 
     static Stream<Arguments> basketProvidesTotalValueAfterDiscount() {
         return Stream.of(
-                singleVegetableItemPriceByWeightWithNoActiveDiscounts());
+                singleVegetableItemPriceByWeightWithNoActiveDiscounts(),
+                singleVegetableItemPriceByWeightWithBuyOneKGForHalfPriceDiscountApplicable());
 
     }
 
@@ -36,6 +38,15 @@ class BasketDiscountTest {
         return Arguments.of("a single weighed vegetable item", "10.00",
                 Collections.singleton(twoKiloOfVegetableProduct(aKiloOfVegetableProduct())),
                 getDiscountService(Collections.emptyList())
+        );
+    }
+
+    private static Arguments singleVegetableItemPriceByWeightWithBuyOneKGForHalfPriceDiscountApplicable() {
+        List<WeighedProduct> discountEligibleProducts = getBuyOneKGForHalfPriceDiscountEligibleProductList();
+        BuyXKGForPercentagePriceDiscount buyXKGForPercentagePriceDiscount = getBuyOneKGForHalfPriceDiscount(discountEligibleProducts);
+        return Arguments.of("a single weighed vegetable item With BuyOneKGForHalfPrice Discount Applicable", "5.00",
+                Collections.singleton(twoKiloOfVegetableProduct(discountEligibleProducts.get(0))),
+                getDiscountService(List.of(buyXKGForPercentagePriceDiscount))
         );
     }
 
@@ -53,6 +64,13 @@ class BasketDiscountTest {
         return discountService;
     }
 
+    private static BuyXKGForPercentagePriceDiscount getBuyOneKGForHalfPriceDiscount(List<WeighedProduct> discountEligibleProductList) {
+        BuyXKGForPercentagePriceDiscount BuyXKGForPercntagePriceDiscount =   new BuyXKGForPercentagePriceDiscount(discountEligibleProductList, BigDecimal.valueOf(1) , BigDecimal.valueOf(50));
+        return BuyXKGForPercntagePriceDiscount;
+    }
 
+    private static List<WeighedProduct> getBuyOneKGForHalfPriceDiscountEligibleProductList(){
+        return  List.of(aKiloOfVegetableProduct());
+    }
 
 }
