@@ -16,3 +16,9 @@ called BuyXKGForPercntagePriceDiscount
 Inputs -ListOfAllEligibleForDiscountItems (ASSUMPTION - THIS DISCOUNT IS VALID FOR CERTAIN WEIGHTED PRODUCTS)
        -minWeight (ASSUMPTION - X IN KG )
        -discountPercentage (ASSUMPTION -  DISCOUNT IS IN PERCENTAGE)
+
+@ TODO's
+The actual consumed and unconsumed item's logic can be checked when we have another Discount strategy
+We can take this a based extend it for n number of Discount strategy with little tweaks
+When we have Multiple discounts classes , We can Priority to discount classes and the active discount list is sorted by Priority
+This design might change a bit if our assumption are different from actual requirements
